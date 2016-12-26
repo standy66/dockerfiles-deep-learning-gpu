@@ -80,7 +80,7 @@ RUN mkdir /bazel && \
 
 # Download and build TensorFlow.
 
-RUN git clone -b r0.12 --recursive --recurse-submodules https://github.com/tensorflow/tensorflow.git && \
+RUN git clone -b r0.11 --recursive --recurse-submodules https://github.com/tensorflow/tensorflow.git && \
     cd tensorflow && \
     git checkout r0.11
 WORKDIR /tensorflow
@@ -153,7 +153,6 @@ RUN pip install --upgrade pip
 RUN apt-get install -y libffi-dev libssl-dev
 RUN pip install --upgrade requests
 RUN pip install requests[security]
-RUN pip install --upgrade --no-cache-dir https://get.graphlab.com/GraphLab-Create/2.1/stepanov@phystech.edu/F85D-7687-8F10-79FA-CB77-105F-59C1-8B1F/GraphLab-Create-License.tar.gz
 
 RUN pip install sklearn
 RUN pip3 install sklearn

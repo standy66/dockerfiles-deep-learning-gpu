@@ -23,6 +23,10 @@ WORKDIR /root/notebooks
 
 COPY .theanorc /root/.theanorc
 
+RUN pip3 install nltk
+RUN pip3 install scikit-learn
+
+
 
 CMD "/run_jupyter.sh"
 
