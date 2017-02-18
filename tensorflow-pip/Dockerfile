@@ -11,7 +11,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	libssl-dev \
 	ca-certificates \
 	curl \
-	wget
+	wget \
+	libsqlite3-dev
 RUN wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz
 RUN tar xvf Python-3.6.0.tgz
 WORKDIR Python-3.6.0
@@ -58,7 +59,7 @@ ENV PROTOC /protobuf/src/protoc
 WORKDIR /protobuf/python
 
 # Installing Tensorflow 1.0.0-rc1 for Python 3.6
-RUN pip3 install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.0.0rc1-cp36-cp36m-linux_x86_64.whl
+RUN pip3 install --upgrade tensorflow-gpu
 
 
 RUN python3 setup.py bdist_wheel --cpp_implementation --compile_static_extension
@@ -74,4 +75,4 @@ EXPOSE 6006
 EXPOSE 8888
 
 
-CMD "/run_jupyter.sh"
+CMD "/run_jupyter.sh" --ip=0.0.0.0
