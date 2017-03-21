@@ -33,7 +33,10 @@ RUN pip3 install ipython \
 		 numpy \
 		 typing \
 		 matplotlib \
-		 pandas
+		 pandas \
+		 mpld3 \
+		 ipywidgets
+RUN jupyter nbextension enable --py widgetsnbextension
 
 RUN pip3 install scikit-image \
 		 sklearn \
@@ -58,7 +61,7 @@ RUN make -j
 ENV PROTOC /protobuf/src/protoc
 WORKDIR /protobuf/python
 
-# Installing Tensorflow 1.0.0-rc1 for Python 3.6
+# Installing Tensorflow 1.0.0 for Python 3.6
 RUN pip3 install --upgrade tensorflow-gpu
 
 
