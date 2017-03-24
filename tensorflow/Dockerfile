@@ -50,6 +50,8 @@ COPY run_jupyter.sh /
 WORKDIR /
 RUN apt-get install -y git
 
+RUN apt-get update
+
 # Installing bazel
 RUN apt-get install -y openjdk-8-jdk
 
