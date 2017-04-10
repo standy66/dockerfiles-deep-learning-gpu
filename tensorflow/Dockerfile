@@ -12,7 +12,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	ca-certificates \
 	curl \
 	wget \
-	libsqlite3-dev
+	libsqlite3-dev \
+	libbz2-dev
+
 RUN wget https://www.python.org/ftp/python/3.6.0/Python-3.6.0.tgz
 RUN tar xvf Python-3.6.0.tgz
 WORKDIR Python-3.6.0
