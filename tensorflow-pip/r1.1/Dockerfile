@@ -64,7 +64,7 @@ ENV PROTOC /protobuf/src/protoc
 WORKDIR /protobuf/python
 
 # Installing Tensorflow 1.0.0 for Python 3.6
-RUN pip3 install --upgrade tensorflow-gpu
+RUN pip3 install --upgrade tensorflow-gpu==1.1.0
 
 
 RUN python3 setup.py bdist_wheel --cpp_implementation --compile_static_extension
@@ -74,6 +74,7 @@ RUN rm -rf dist/*
 ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 
 WORKDIR /root
+
 # TensorBoard
 EXPOSE 6006
 # IPython
