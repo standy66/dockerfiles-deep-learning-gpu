@@ -68,7 +68,7 @@ RUN apt-get install -y bazel
 WORKDIR /
 RUN git clone https://github.com/tensorflow/tensorflow
 WORKDIR /tensorflow
-RUN git checkout master
+RUN git checkout r1.1
 
 ENV CC_OPT_FLAGS "-mavx -mavx2 -mfma -mfpmath=both -msse4.2 -msse4.1"
 ENV TF_ENABLE_XLA 1
@@ -105,6 +105,7 @@ RUN ./bazel-bin/tensorflow/tools/pip_package/build_pip_package /tmp/tensorflow_p
 RUN pip3 install /tmp/tensorflow_pkg/tensorflow-*.whl
 
 ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
+RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1
 
 WORKDIR /root
 
