@@ -29,4 +29,4 @@ RUN cmake -D CMAKE_BUILD_TYPE=RELEASE \
 RUN make -j
 RUN make install
 
-
+WORKDIR /root/notebooks
