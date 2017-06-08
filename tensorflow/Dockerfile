@@ -106,6 +106,22 @@ RUN pip3 install /tmp/tensorflow_pkg/tensorflow-*.whl
 
 ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
 RUN ln -s /usr/local/cuda/lib64/stubs/libcuda.so /usr/local/cuda/lib64/stubs/libcuda.so.1
+# tensorflow source
+RUN export TENSORFLOW_SRC_PATH=/tensorflow
+
+# warp ctc 
+RUN apt-get install -y cmake
+RUN git clone https://github.com/baidu-research/warp-ctc.git /warp-ctc
+WORKDIR /warp-ctc
+RUN mkdir build
+WORKDIR /warp-ctc/build
+RUN export CUDA_BIN_PATH=/usr/local/cuda
+RUN cmake ../
+RUN make
+RUN export WARP_CTC_PATH=/warp-ctc/build
+WORKDIR /warp-ctc/tensorflow_binding/
+RUN pip3 install setuptools
+RUN LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs python3 setup.py install
 
 WORKDIR /root
 
