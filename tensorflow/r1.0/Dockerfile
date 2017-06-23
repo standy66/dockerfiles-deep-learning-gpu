@@ -68,7 +68,7 @@ RUN apt-get install -y bazel
 WORKDIR /
 RUN git clone https://github.com/tensorflow/tensorflow
 WORKDIR /tensorflow
-RUN git checkout r1.1
+RUN git checkout r1.0
 
 ENV CC_OPT_FLAGS "-mavx -mavx2 -mfma -mfpmath=both -msse4.2 -msse4.1"
 ENV TF_ENABLE_XLA 1
@@ -83,8 +83,8 @@ ENV TF_NEED_HDFS 1
 ENV TF_NEED_OPENCL 0
 ENV GCC_HOST_COMPILER_PATH /usr/bin/gcc
 ENV TF_CUDA_VERSION 8.0
-ENV CUDA_TOOLKIT_PATH /usr/local/cuda
-ENV CUDNN_INSTALL_PATH /usr/local/cuda
+ENV CUDA_TOOLKIT_PATH /usr/local/cuda-8.0
+ENV CUDNN_INSTALL_PATH /usr/local/cuda-8.0
 ENV TF_NEED_VERBS 0
 ENV TF_CUDA_CLANG 0
 
@@ -95,6 +95,7 @@ RUN ln -s /usr/lib/x86_64-linux-gnu/libcudnn_static.a /usr/local/cuda/lib64
 RUN ln -s /usr/lib/x86_64-linux-gnu/libcudnn_static_v6.a /usr/local/cuda/lib64
 
 RUN ln -s /usr/include/x86_64-linux-gnu/cudnn_v6.h /usr/local/cuda/include
+RUN ln -s /usr/include/x86_64-linux-gnu/cudnn_v6.h /usr/local/cuda/include/cudnn.h
 
 RUN ./configure
 
@@ -121,6 +122,8 @@ RUN make
 RUN export WARP_CTC_PATH=/warp-ctc/build
 WORKDIR /warp-ctc/tensorflow_binding/
 RUN pip3 install setuptools
+ENV CUDA_HOME /usr/local/cuda/
+ENV TENSORFLOW_SRC_PATH /tensorflow
 RUN LD_LIBRARY_PATH=/usr/local/cuda/lib64/stubs python3 setup.py install
 
 WORKDIR /root

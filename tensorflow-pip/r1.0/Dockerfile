@@ -64,7 +64,7 @@ ENV PROTOC /protobuf/src/protoc
 WORKDIR /protobuf/python
 
 # Installing Tensorflow 1.0.0 for Python 3.6
-RUN pip3 install --upgrade tensorflow-gpu==1.0.1
+RUN pip3 install --upgrade tensorflow-gpu==1.0.0
 
 
 RUN python3 setup.py bdist_wheel --cpp_implementation --compile_static_extension
